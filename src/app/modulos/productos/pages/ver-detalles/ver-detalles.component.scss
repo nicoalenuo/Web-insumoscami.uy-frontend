@@ -1,0 +1,32 @@
+.contenedor {
+    display: flex;
+    flex-direction: row;
+}
+
+.colIzquierda {
+    width: 100%;
+}
+
+.colDerecha {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.nombre {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--primary-text);
+}
+
+@media (max-width: 991px) {
+    .contenedor {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,223 @@
+<div class="layout-topbar" (mouseleave)="contraer_sin_timeout()" #expandable>
+    <nav id="nav-container">
+        <div class="div-img">
+            <a
+                class="layout-topbar-logo"
+                routerLink="/"
+                (click)="contraer_sin_timeout()"
+            >
+                <img
+                    class="img_logo_topbar"
+                    src="assets/shared/insumos_cami.webp"
+                    alt="logo"
+                />
+            </a>
+
+            <div class="layout-topbar-menu-mobile">
+                <button
+                    (click)="change_colorScheme()"
+                    pButton
+                    class="p-button p-button-text p-button-rounded layout-topbar-button"
+                >
+                    <i
+                        [class]="
+                            actual_colorScheme === 'light'
+                                ? 'pi pi-moon'
+                                : 'pi pi-sun'
+                        "
+                        style="font-size: 18px"
+                    ></i>
+                </button>
+                @switch(isLogged){ @case (true) {
+                <button
+                    routerLink="/vendedores/menu"
+                    pButton
+                    class="p-button p-button-text p-button-rounded layout-topbar-button"
+                >
+                    <i class="pi pi-th-large" style="font-size: 18px"></i>
+                </button>
+
+                <button
+                    (click)="contraer_sin_timeout(); abrir_carrito()"
+                    pButton
+                    class="p-button p-button-text p-button-rounded layout-topbar-button"
+                >
+                    <i class="pi pi-shopping-cart" style="font-size: 18px"></i
+                    ><a style="margin-bottom: 15px; font-weight: 500">
+                        {{ cantidadCarrito }}
+                    </a>
+                </button>
+                <button
+                    (click)="contraer_sin_timeout(); logout()"
+                    pButton
+                    class="p-button p-button-text p-button-rounded layout-topbar-button"
+                    [routerLink]="'/sesion/login'"
+                >
+                    <i class="pi pi-sign-out" style="font-size: 18px"></i>
+                </button>
+
+                } @default {
+
+                <button
+                    (click)="contraer_sin_timeout(); abrir_carrito()"
+                    pButton
+                    class="p-button p-button-text p-button-rounded layout-topbar-button"
+                >
+                    <i class="pi pi-shopping-cart" style="font-size: 18px"></i
+                    ><a style="margin-bottom: 15px; font-weight: 500">
+                        {{ cantidadCarrito }}
+                    </a>
+                </button>
+                } }
+                <div
+                    class="menu-icon-container"
+                    (click)="toggle_contraido()"
+                    [class.active]="expandido"
+                >
+                    <div class="menu-icon">
+                        <span class="line-1"></span>
+                        <span class="line-2"></span>
+                        <span class="line-3"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="desktop-options">
+            @for (item of model; track item; let i = $index) {
+            <li (mouseenter)="expandir(i)">
+                <a
+                    (click)="contraer_sin_timeout()"
+                    [routerLink]="'/search'"
+                    [queryParams]="{
+                        query: '',
+                        page: 1,
+                        categoria: item.routerLink
+                    }"
+                    class="topbar_title"
+                    >{{ item.label }}</a
+                >
+                <ul>
+                    @for (elem of item.items; track elem) {
+                    <li (click)="contraer_sin_timeout()">
+                        <a
+                            [routerLink]="'/search'"
+                            [queryParams]="{
+                                query: '',
+                                page: 1,
+                                categoria: elem.routerLink
+                            }"
+                        >
+                            {{ elem.label }}
+                        </a>
+                    </li>
+                    }
+                </ul>
+            </li>
+            }
+        </ul>
+
+        <ul class="mobile-options">
+            <div class="mobile-spans" [class.show]="!showing">
+                @for (item of model; track item; let i = $index) {
+                <li>
+                    <span (click)="show(i)">{{ item.label }}</span>
+                </li>
+                }
+            </div>
+            @for (item of model; track item; let i = $index) {
+            <ul [class.shown]="shown[i]">
+                <li style="width: 100%">
+                    <i class="pi pi-angle-left" (click)="close(i)"></i>
+                </li>
+                @for (elem of item.items; track elem) {
+                <li>
+                    <a
+                        (click)="contraer_sin_timeout()"
+                        [routerLink]="'/search'"
+                        [queryParams]="{
+                            query: '',
+                            page: 1,
+                            categoria: elem.routerLink
+                        }"
+                    >
+                        {{ elem.label }}
+                    </a>
+                </li>
+                }
+                <li>
+                    <a
+                        style="font-size: 16px"
+                        [routerLink]="'/search'"
+                        [queryParams]="{
+                            query: '',
+                            page: 1,
+                            categoria: item.routerLink
+                        }"
+                        (click)="contraer_sin_timeout()"
+                        >Ver todos los productos de esta categoría
+                    </a>
+                </li>
+            </ul>
+            }
+        </ul>
+
+        <div #topbarmenu class="layout-topbar-menu">
+            <button
+                (click)="change_colorScheme()"
+                pButton
+                class="p-button p-button-text p-button-rounded layout-topbar-button"
+            >
+                <i
+                    [class]="
+                        actual_colorScheme === 'light'
+                            ? 'pi pi-moon'
+                            : 'pi pi-sun'
+                    "
+                    style="font-size: 18px"
+                ></i>
+            </button>
+            @switch(isLogged){ @case (true) {
+            <button
+                routerLink="/vendedores/menu"
+                pButton
+                class="p-button p-button-text p-button-rounded layout-topbar-button"
+            >
+                <i class="pi pi-th-large" style="font-size: 18px"></i>
+            </button>
+
+            <button
+                (click)="contraer_sin_timeout(); abrir_carrito()"
+                pButton
+                class="p-button p-button-text p-button-rounded layout-topbar-button"
+            >
+                <i class="pi pi-shopping-cart" style="font-size: 18px"></i
+                ><a style="margin-bottom: 15px; font-weight: 500">
+                    {{ cantidadCarrito }}
+                </a>
+            </button>
+            <button
+                (click)="contraer_sin_timeout(); logout()"
+                pButton
+                class="p-button p-button-text p-button-rounded layout-topbar-button"
+                [routerLink]="'/sesion/login'"
+            >
+                <i class="pi pi-sign-out" style="font-size: 18px"></i>
+            </button>
+
+            } @default {
+
+            <button
+                (click)="contraer_sin_timeout(); abrir_carrito()"
+                pButton
+                class="p-button p-button-text p-button-rounded layout-topbar-button"
+            >
+                <i class="pi pi-shopping-cart" style="font-size: 18px"></i
+                ><a style="margin-bottom: 15px; font-weight: 500">
+                    {{ cantidadCarrito }}
+                </a>
+            </button>
+            } }
+        </div>
+    </nav>
+</div>

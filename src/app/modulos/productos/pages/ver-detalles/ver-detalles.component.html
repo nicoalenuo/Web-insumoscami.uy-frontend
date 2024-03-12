@@ -1,0 +1,71 @@
+<div class="card contenedor">
+    <div class="colIzquierda">
+        <p-galleria [(value)]="images" [numVisible]="3">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <img
+                    [src]="item.thumbnailImageSrc"
+                    style="width: 80px; height: 80px"
+                />
+            </ng-template>
+        </p-galleria>
+    </div>
+    <div class="colDerecha">
+        <div class="info">
+            <div style="display: flex; align-items: center">
+                <i class="pi pi-tag mr-2"></i>
+                <p>{{ item.categorias }}</p>
+            </div>
+
+            <p class="nombre">{{ item.nombre }}</p>
+
+            <p class="precio-producto" style="font-weight: 700">
+                $ {{ item.precio }}
+            </p>
+
+            <div class="form-group col-md-3">
+                <label for="cantidad">Cantidad</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button
+                            (click)="removeCantidad()"
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            id="restar"
+                        >
+                            -
+                        </button>
+                    </div>
+                    <input
+                        [(ngModel)]="cantidad"
+                        type="text"
+                        class="form-control"
+                        id="cantidad"
+                        value="1"
+                        style="max-width: 40px"
+                    />
+                    <div class="input-group-append">
+                        <button
+                            (click)="addCantidad()"
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            id="sumar"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button
+                (click)="agregarCarrito()"
+                pButton
+                pRipple
+                label="AGREGAR AL CARRITO"
+                style="width: 100%"
+                class="text-xl"
+            ></button>
+        </div>
+    </div>
+</div>

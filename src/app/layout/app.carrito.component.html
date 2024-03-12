@@ -1,0 +1,123 @@
+<div class="contenedor_carrito">
+    <div class="contenedor_header">
+        <h3>Carrito</h3>
+        <button
+            class="p-button p-button-text p-button-rounded p-button-no-padding"
+            (click)="cerrar_carrito()"
+        >
+            <i class="pi pi-times"></i>
+        </button>
+    </div>
+    <div class="contenedor_productos">
+        @for (item of carrito; track item.id) {
+        <div class="producto">
+            <div style="width: 80px">
+                <img
+                    src="{{
+                        item.imagen
+                            ? obtenerImagen(item.imagen)
+                            : '/assets/shared/default-product.webp'
+                    }}"
+                    class="img-fluid"
+                    alt="Shopping item"
+                />
+            </div>
+            <div class="nombre-y-opciones">
+                <a
+                    [routerLink]="'/productos/ver-detalles/' + item.id"
+                    (click)="cerrar_carrito()"
+                >
+                    <p>
+                        {{ item.nombre | uppercase }}
+                    </p>
+                </a>
+                <div class="opciones-producto" style="user-select: none">
+                    <p class="precio-producto">$ {{ precio(item) }}</p>
+                    <div class="selector-cantidad">
+                        <button
+                            class="p-button p-button-text p-button-rounded"
+                            (click)="restarCant(item)"
+                        >
+                            <i class="pi pi-minus"></i>
+                        </button>
+                        <span style="font-size: 18px; font-weight: 100">
+                            {{ item.cantidad }}
+                        </span>
+                        <button
+                            class="p-button p-button-text p-button-rounded"
+                            (click)="agregarCant(item)"
+                        >
+                            <i class="pi pi-plus"></i>
+                        </button>
+                    </div>
+                    <span
+                        (click)="quitarDelCarrito(item)"
+                        style="
+                            cursor: pointer;
+                            font-size: 14px;
+                            font-weight: 100;
+                        "
+                    >
+                        Quitar
+                    </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        } @empty {
+        <p>Aún no has agregado nada a tu carrito</p>
+        }
+    </div>
+
+    <div class="opciones_carrito">
+        <hr />
+        <div style="display: flex; justify-content: space-between">
+            <span class="precio-producto">Total</span>
+            <p class="precio-producto">$ {{ total() }}</p>
+        </div>
+        <button
+            (click)="opOnline.toggle($event)"
+            pButton
+            pRipple
+            label="PAGAR ONLINE"
+            style="width: 100%"
+            class="text-xl mt-3"
+        ></button>
+        <button
+            (click)="opPedido.toggle($event)"
+            pButton
+            pRipple
+            label="PAGAR EN EL LOCAL"
+            style="width: 100%"
+            class="text-xl mt-3"
+        ></button>
+    </div>
+</div>
+
+<p-overlayPanel #opOnline>
+    <div class="flex flex-column gap-2">
+        <h5>Ingresa tu email</h5>
+        <input pInputText [(ngModel)]="user_email_online" />
+        <p-button
+            [style]="{ width: '100%' }"
+            pRipple
+            (click)="linkPago()"
+            [outlined]="true"
+            label="Hacer pedido"
+        ></p-button>
+    </div>
+</p-overlayPanel>
+
+<p-overlayPanel #opPedido>
+    <div class="flex flex-column gap-2">
+        <h5>Ingresa tu email</h5>
+        <input pInputText [(ngModel)]="user_email_pedido" />
+        <p-button
+            [style]="{ width: '100%' }"
+            pRipple
+            (click)="generarPedido()"
+            [outlined]="true"
+            label="Hacer pedido"
+        ></p-button>
+    </div>
+</p-overlayPanel>

@@ -1,0 +1,56 @@
+<h1>Datos del producto</h1>
+
+<div class="card contenedor">
+    <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md-col-6">
+            <p>Nombre</p>
+            <input
+                pInputText
+                type="text"
+                [(ngModel)]="itemSeleccionado.nombre"
+            />
+        </div>
+        <div class="field col-12 md:col-6">
+            <p>Precio</p>
+            <input
+                required="Es necesario un precio"
+                pInputText
+                [(ngModel)]="itemSeleccionado.precio"
+                type="number"
+            />
+        </div>
+        <div class="field col-12 md:col-6">
+            <p>Stock</p>
+            <input
+                required="Es necesario un stock"
+                pInputText
+                [(ngModel)]="itemSeleccionado.stock_cantidad"
+                type="number"
+            />
+        </div>
+        <div class="field col-12 md:col-6">
+            <p>Cambiar Imagen</p>
+            <input pInputText type="file" (change)="onFileSelected($event)" />
+        </div>
+
+        <div class="field col-12 md:col-6">
+            <p>Categorias</p>
+            <p-multiSelect
+                appendTo="body"
+                [options]="categorias"
+                [(ngModel)]="itemSeleccionado.categorias"
+            ></p-multiSelect>
+        </div>
+
+        <div class="field col-12">
+            <p>Descripcion</p>
+            <input
+                type="string"
+                pInputTextarea
+                rows="4"
+                [(ngModel)]="itemSeleccionado.descripcion"
+            />
+        </div>
+        <p-button label="Modificar" (click)="modificarPublicacion()"></p-button>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+:root {
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings);
+    font-variation-settings: normal;
+    --font-family: "Roboto", sans-serif;
+    --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+
+    --primary-text: #181818;
+    --secondary-text: #4b5563;
+    --tertiary-text: #a1a1a1;
+
+    --layout-background: #ffffff;
+    --layout-footer-background: #bb76c6;
+
+    --layout-box-shadow: 0px 3px 5px rgba(187, 118, 198, 0.02),
+        0px 0px 2px rgba(187, 118, 198, 0.05),
+        0px 1px 4px rgba(187, 118, 198, 0.08);
+
+    --primary-color: #bb76c6;
+    --primary-color-text: #ffffff;
+    --content-padding: 1.25rem;
+    --inline-spacing: 0.5rem;
+    --border-radius: 6px;
+    --surface-ground: #f9fafb;
+    --surface-section: #ffffff;
+    --surface-card: #ffffff;
+    --surface-overlay: #ffffff;
+    --surface-border: #dfe7ef;
+    --surface-hover: #f6f9fc;
+    --focus-ring: 0 0 0 0.2rem #c7d2fe;
+
+    --maskbg: rgba(0, 0, 0, 0.4);
+    --mask-loading: rgba(255, 255, 255, 0.5);
+
+    --highlight-bg: #eef2ff;
+    --highlight-text-color: #4338ca;
+
+    color-scheme: light;
+
+    --scrollbar-track-color: gray;
+    scrollbar-color: var(--scrollbar-track-color) transparent;
+
+    --button-hover: #4f46e5;
+
+    --input-background: #ffffff;
+    --input-border: #d1d5db;
+}

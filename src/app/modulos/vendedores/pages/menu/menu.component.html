@@ -1,0 +1,24 @@
+<div class="home-links-container card">
+    <img src="/assets/shared/insumos_cami.webp" class="menu-logo" />
+    <div class="btn-home-container">
+        <button
+            class="btn btn-default form-control"
+            [routerLink]="['/vendedores/caja']"
+        >
+            <i class="pi pi-box"></i> Caja
+        </button>
+
+        <button
+            class="btn btn-default form-control"
+            [routerLink]="['/productos/create/']"
+        >
+            <i class="pi pi-plus"></i> Agregar item
+        </button>
+        <button
+            class="btn btn-default form-control"
+            [routerLink]="['/vendedores/pedidos/']"
+        >
+            <i class="pi pi-plus"></i> Pedidos
+        </button>
+    </div>
+</div>

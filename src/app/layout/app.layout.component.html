@@ -1,0 +1,15 @@
+<div class="layout-wrapper" [ngClass]="containerClass">
+    <app-topbar></app-topbar>
+    @defer (on idle){
+    <app-carrito></app-carrito>
+    }
+    <div class="layout-main">
+        <router-outlet></router-outlet>
+    </div>
+    @defer(on idle){
+    <div class="layout-mask" (click)="cerrar_carrito()"></div>
+    <div class="layout-mask-loading"></div>
+    }
+</div>
+<app-footer></app-footer>
+<p-toast position="top-center" key="bc"></p-toast>

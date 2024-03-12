@@ -1,0 +1,32 @@
+.home-links-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.home-links-container button {
+    font-size: 17px;
+    background: #bb76c6;
+    color: #fff;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 42px;
+}
+
+.home-links-container button:hover {
+    background: #4d189e;
+    color: #fff;
+}
+
+.btn-home-container {
+    max-width: 300px;
+    margin: auto;
+}
+
+.menu-logo {
+    margin-bottom: 10px;
+    width: 35%;
+}

@@ -1,0 +1,7 @@
+export enum ROLES  {
+    COMPRADOR,
+    VENDEDOR,
+    EMPRESA,
+    INVITADO,
+    ADMINISTRADOR
+}

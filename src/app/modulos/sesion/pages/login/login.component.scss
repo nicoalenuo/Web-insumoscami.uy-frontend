@@ -1,0 +1,17 @@
+.contenedor {
+    max-width: 550px;
+    width: 100%;
+}
+
+::ng-deep {
+    eyeslashicon,
+    eyeicon {
+        transform: scale(1.6);
+        color: var(--primary-color) !important;
+        cursor: pointer;
+    }
+
+    .p-password {
+        width: 100%;
+    }
+}

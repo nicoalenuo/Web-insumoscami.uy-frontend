@@ -1,0 +1,275 @@
+<div class="card carusels">
+    <h3>Los más vendidos</h3>
+    <p-carousel
+        [value]="best"
+        [numVisible]="4"
+        [numScroll]="1"
+        [responsiveOptions]="responsiveOptions"
+        [circular]="true"
+        autoplayInterval="4000"
+    >
+        >
+        <ng-template let-product pTemplate="item">
+            <div class="card m-3 clickeable producto-carusel-mas-vendido">
+                <a
+                    [routerLink]="'/productos/ver-detalles/' + product.id"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: 100%;
+                        width: 100%;
+                    "
+                >
+                    @if (isLogged) {
+                    <button
+                        class="p-button p-button-text"
+                        (click)="modificarItem($event, product.id)"
+                        pButton
+                    >
+                        <i class="pi pi-pencil"></i>
+                    </button>
+                    }
+                    <div
+                        class="flex flex-column align-items-center text-center"
+                    >
+                        <img
+                            [ngSrc]="
+                                product.imagen_recortada
+                                    ? obtenerUrl(product.imagen_recortada)
+                                    : '/assets/shared/default-product.webp'
+                            "
+                            [alt]="product.name"
+                            class="my-3 mx-0"
+                            style="border-radius: 3px"
+                            width="200"
+                            height="200"
+                            priority
+                        />
+
+                        <p class="titulo max-2-lines">
+                            {{ product.nombre | uppercase }}
+                        </p>
+                    </div>
+                    <div
+                        class="flex align-items-center justify-content-between"
+                    >
+                        <div class="info">
+                            <p class="precio-producto">
+                                $ {{ product.precio }}
+                            </p>
+                            <p
+                                style="
+                                    font-size: 14px;
+                                    color: var(--tertiary-text);
+                                "
+                            >
+                                {{
+                                    product.veces_vendido >= 10
+                                        ? "+" +
+                                          (product.veces_vendido -
+                                              (product.veces_vendido % 10)) +
+                                          " vendidos"
+                                        : ""
+                                }}
+                            </p>
+                        </div>
+                        <p-button
+                            (click)="agregarCarrito($event, product)"
+                            [rounded]="true"
+                            icon="pi pi-shopping-cart"
+                        >
+                        </p-button>
+                    </div>
+                </a>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<div class="card carusels">
+    <h3>Ultimos productos agregados</h3>
+    <p-carousel
+        [value]="latest"
+        [numVisible]="3"
+        [numScroll]="1"
+        [responsiveOptions]="responsiveOptions"
+        autoplayInterval="4000"
+        [circular]="true"
+    >
+        >
+        <ng-template let-product pTemplate="item">
+            <div class="card m-3 clickeable producto-carusel-ultimo-agregado">
+                <a
+                    [routerLink]="'/productos/ver-detalles/' + product.id"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: 100%;
+                        width: 100%;
+                    "
+                >
+                    @if (isLogged) {
+                    <button
+                        class="p-button p-button-text"
+                        (click)="modificarItem($event, product.id)"
+                        pButton
+                    >
+                        <i class="pi pi-pencil"></i>
+                    </button>
+                    }
+                    <div
+                        class="flex flex-column align-items-center text-center mb-3"
+                    >
+                        <img
+                            [ngSrc]="
+                                product.imagen_recortada
+                                    ? obtenerUrl(product.imagen_recortada)
+                                    : '/assets/shared/default-product.webp'
+                            "
+                            [alt]="product.name"
+                            class="my-3 mx-0"
+                            style="border-radius: 3px"
+                            width="250"
+                            height="250"
+                            priority
+                        />
+
+                        <p class="titulo max-2-lines">
+                            {{ product.nombre | uppercase }}
+                        </p>
+                    </div>
+                    <div
+                        class="flex align-items-center justify-content-between"
+                    >
+                        <div class="info">
+                            <p class="precio-producto">
+                                $ {{ product.precio }}
+                            </p>
+                        </div>
+                        <p-button
+                            (click)="agregarCarrito($event, product)"
+                            [rounded]="true"
+                            icon="pi pi-shopping-cart"
+                        >
+                        </p-button>
+                    </div>
+                </a>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<form class="search-box" (ngSubmit)="onSubmit()">
+    <div class="search">
+        <input
+            id="search-input"
+            type="text"
+            placeholder="Busca productos"
+            [(ngModel)]="query"
+            [ngModelOptions]="{ standalone: true }"
+        />
+
+        <button class="cursor-pointer boton_buscar" type="submit">
+            <i class="pi pi-search"></i>
+        </button>
+    </div>
+</form>
+
+@if (isLogged){
+<button (click)="cambiarProducts()" type="button" class="btn btn-primary">
+    Mostrar en una linea los productos
+</button>
+}
+
+<div class="productos">
+    @for (product of products; track product.id) {
+    <div class="card producto">
+        <a [routerLink]="'/productos/ver-detalles/' + product.id">
+            @if (isLogged) {
+            <div style="display: flex; justify-content: space-between">
+                <button (click)="modificarItem($event, product.id)" pButton>
+                    <i class="pi pi-pencil"></i>
+                </button>
+                <p>
+                    Stock: <strong> {{ product.stock_cantidad }} </strong>
+                </p>
+            </div>
+            }
+            <div class="flex flex-column align-items-center text-center mb-3">
+                <img
+                    [ngSrc]="
+                        product.imagen_recortada
+                            ? obtenerUrl(product.imagen_recortada)
+                            : '/assets/shared/default-product.webp'
+                    "
+                    [alt]="product.nombre"
+                    class="my-3 mx-0"
+                    style="border-radius: 5px"
+                    width="150"
+                    height="150"
+                    priority
+                    [id]="'imagen-' + product.id"
+                />
+
+                <p class="titulo max-2-lines">
+                    {{ product.nombre | uppercase }}
+                </p>
+            </div>
+
+            <div class="flex align-items-center justify-content-between">
+                <div class="info">
+                    <p class="precio-producto">$ {{ product.precio }}</p>
+                </div>
+                <p-button
+                    (click)="agregarCarrito($event, product)"
+                    [rounded]="true"
+                    icon="pi pi-shopping-cart"
+                >
+                </p-button>
+            </div>
+        </a>
+    </div>
+    } @empty {
+    <h6>No se encontró ningún producto con el nombre y/o categoría buscada</h6>
+    }
+</div>
+
+<p-paginator
+    (onPageChange)="onPageChange($event)"
+    [rows]="12"
+    [totalRecords]="cantidadTotalItems"
+></p-paginator>
+
+@defer(when visible_modificacion){
+<!--MODAL QUE SE MUESTRA CUANDO SE CLICKEA EDITAR-->
+<div
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    [style.display]="visible_modificacion ? 'block' : 'none'"
+>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 180%">
+            <div class="modal-body">
+                <div class="form-row align-items-center">
+                    <app-modificar-item
+                        [itemSeleccionado]="itemSeleccionado"
+                    ></app-modificar-item>
+
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-danger"
+                            (click)="closePopup()"
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
